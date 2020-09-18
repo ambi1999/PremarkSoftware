@@ -1,0 +1,157 @@
+package uk.ac.brunel.mamcaasystem.extractor;
+/*
+ * $Id: RawData.java,v 1.3 2005/05/09 11:52:48 blowagie Exp $
+ * $Name:  $
+ *
+ * This code is part of the 'iText Tutorial'.
+ * You can find the complete tutorial at the following address:
+ * http://itextdocs.lowagie.com/tutorial/
+ *
+ * This code is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * itext-questions@lists.sourceforge.net
+ */
+//package com.lowagie.examples.objects.images;
+
+import com.lowagie.text.rtf.document.RtfDocument;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Image;
+import com.lowagie.text.pdf.PdfWriter;
+/**
+ * Using raw data to construct an Image object.
+ */
+public class RawData {    
+    /**
+     * Raw data.
+     * @param args no arguments needed
+     */
+
+public static String STR_NAME_OF_FOLDER_CONTAINING_SOURCE_FILES="C:/SoftwareDev/0001_A_Brunel Electronic Assessment Software/Students Answers/12345/";
+public static String STR_NAME_OF_FOLDER_CONTAINING_OUTPUT_FILES="C:/SoftwareDev/0001_A_Brunel Electronic Assessment Software/Students Answers/output/";
+
+    public static void main(String[] args) {
+        
+        //writeRawImageDataToPDF();
+        writeRawWordDocDataToPDF();
+    }
+
+public static void writeRawImageDataToPDF(){
+    System.out.println("bytes[] / raw image");
+        
+        // step 1: creation of a document-object
+        Document document = new Document();
+        
+        try {
+            
+            // step 2:
+            // we create a writer that listens to the document
+            // and directs a PDF-stream to a file
+            
+            PdfWriter.getInstance(document, new FileOutputStream(STR_NAME_OF_FOLDER_CONTAINING_OUTPUT_FILES+"rawdata.pdf"));
+            
+            // step 3: we open the document
+            document.open();
+            
+            // step 4: we add content (example by Paulo Soares)
+            
+            // creation a jpeg passed as an array of bytes to the Image
+            //RandomAccessFile rf = new RandomAccessFile("otsoe.jpg", "r");
+	    RandomAccessFile rf = new RandomAccessFile(STR_NAME_OF_FOLDER_CONTAINING_SOURCE_FILES+"MY Statechart Q33.dfState.wmf", "r");
+           //RandomAccessFile rf = new RandomAccessFile(STR_NAME_OF_FOLDER_CONTAINING_SOURCE_FILES+"my 12345 answer.doc", "r");
+            int size = (int)rf.length();
+            byte imext[] = new byte[size];
+            rf.readFully(imext);
+            rf.close();
+            Image img1 = Image.getInstance(imext);
+            img1.setAbsolutePosition(50, 500);
+            document.add(img1);
+            
+            // creation of an image of 100 x 100 pixels (x 3 bytes for the Red, Green and Blue value)
+            byte data[] = new byte[100*100*3];
+            for (int k = 0; k < 100; ++k) {
+                for (int j = 0; j < 300; j += 3) {
+                    data[k * 300 + j] = (byte)(255 * Math.sin(j * .5 * Math.PI / 300));
+                    data[k * 300 + j + 1] = (byte)(256 - j * 256 / 300);
+                    data[k * 300 + j + 2] = (byte)(255 * Math.cos(k * .5 * Math.PI / 100));
+                }
+            }
+            Image img2 = Image.getInstance(100, 100, 3, 8, data);
+            img2.setAbsolutePosition(200, 200);
+            document.add(img2);
+        }
+        catch(DocumentException de) {
+            System.err.println(de.getMessage());
+        }
+        catch(IOException ioe) {
+            System.err.println(ioe.getMessage());
+        }
+        
+        // step 5: we close the document
+        document.close();
+}
+
+public static void writeRawWordDocDataToPDF(){
+    System.out.println("bytes[] / raw image");
+        
+        // step 1: creation of a document-object
+        Document document = new Document();
+        
+        try {
+            
+            // step 2:
+            // we create a writer that listens to the document
+            // and directs a PDF-stream to a file
+            
+            PdfWriter.getInstance(document, new FileOutputStream(STR_NAME_OF_FOLDER_CONTAINING_OUTPUT_FILES+"rawdata.pdf"));
+            
+            // step 3: we open the document
+            document.open();
+            
+            // step 4: we add content (example by Paulo Soares)
+            
+            // creation a jpeg passed as an array of bytes to the Image
+            //RandomAccessFile rf = new RandomAccessFile("otsoe.jpg", "r");
+	   //RandomAccessFile rf = new RandomAccessFile(STR_NAME_OF_FOLDER_CONTAINING_SOURCE_FILES+"MY Statechart Q33.dfState.wmf", "r");
+            RandomAccessFile rf = new RandomAccessFile(STR_NAME_OF_FOLDER_CONTAINING_SOURCE_FILES+"my 12345 answer.doc", "r");
+            int size = (int)rf.length();
+            byte imext[] = new byte[size];
+            rf.readFully(imext);
+            rf.close();
+            //Image img1 = Image.getInstance(imext);
+            //img1.setAbsolutePosition(50, 500);
+            //document.add(img1);
+           // RtfDocument  rtfDocument = RtfDocument.getInstance(imext);
+            //rtfDocument.setAbsolutePosition(50, 500);
+            //document.add(rtfDocument);
+            
+            // creation of an image of 100 x 100 pixels (x 3 bytes for the Red, Green and Blue value)
+            byte data[] = new byte[100*100*3];
+            for (int k = 0; k < 100; ++k) {
+                for (int j = 0; j < 300; j += 3) {
+                    data[k * 300 + j] = (byte)(255 * Math.sin(j * .5 * Math.PI / 300));
+                    data[k * 300 + j + 1] = (byte)(256 - j * 256 / 300);
+                    data[k * 300 + j + 2] = (byte)(255 * Math.cos(k * .5 * Math.PI / 100));
+                }
+            }
+            Image img2 = Image.getInstance(100, 100, 3, 8, data);
+            img2.setAbsolutePosition(200, 200);
+            document.add(img2);
+        }
+        catch(DocumentException de) {
+            System.err.println(de.getMessage());
+        }
+        catch(IOException ioe) {
+            System.err.println(ioe.getMessage());
+        }
+        
+        // step 5: we close the document
+        document.close();
+}
+}

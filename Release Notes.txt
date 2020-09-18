@@ -1,0 +1,38 @@
+PreMark Software System for Brunel University
+
+Released as Open Source Software under GNU GENERAL PUBLIC LICENSE.
+
+PreMark is a prototype software system that fits between the e-learning tool (in our case WebCT) and the user (lecturer). It provide support for lecturers during the assessment process by organizing the coursework electronically submitted by the students. Additionally it helps detect possible cases of plagiarism.
+
+Design and Development by : Ambikesh Jayal, Brunel University, United Kingdom.
+Contact Email: ambi1999@gmail.com, ambikesh.jayal@brunel.ac.uk
+Date: 02 April 2009
+                                 
+Technology: Java, iText API, Netbeans,
+
+Published Paper Link: http://www.iceg.net/2007/books/2/25 324 2.pdf
+
+The main file to look at is CourseworkOrganiser.java
+
+/*
+ * Project: MAMEAssSys (Brunel Electronic Assessment Software)
+ *
+ * Resource Name: StudentAnswerExtractor.java
+ *
+ * Description: This is a java file which is being used to extract the images files from the zipped borland project
+ *
+ * Author: Ambikesh Jayal
+ *
+ * Creation date: 2006-12-01
+ *
+ * Last Modified date: 2006-12-01
+ *
+ * Version: 1.0
+ *
+ * Revisions: 0
+ *
+ * Copyright Info: Copyright 2006-2008 by Ambikesh
+ * Copying or reproduction without prior
+ * written approval is prohibited. All rights
+ * reserved.
+ */
